@@ -9,6 +9,9 @@ require("dotenv").config();
 
 var indexRouter = require("./routes/index");
 const authRoutes = require("./routes/auth")
+var usersRouter = require("./routes/users");
+const { authenticateToken } = require("./services/JWT");
+
 
 
 var app = express();
@@ -27,7 +30,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 connectMongo();
 
 app.use("/", indexRouter);
-app.use("/api/v1/auth", authRoutes);
+app.use("/api/v1/aut", authRoutes);
+app.use("/api/v1/users",authenticateToken, usersRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
